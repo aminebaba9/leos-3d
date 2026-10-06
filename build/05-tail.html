@@ -1,0 +1,260 @@
+
+  <!-- ===================== BOUTON WHATSAPP FLOTTANT ===================== -->
+  <a class="wa-float" id="whatsappFloat" href="#" target="_blank" rel="noopener" aria-label="Discuter sur WhatsApp" data-i18n-aria="a11y.whats">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.03c-.24.68-1.4 1.3-1.93 1.35-.53.05-1.02.24-3.47-.72-2.95-1.16-4.8-4.2-4.95-4.4-.14-.2-1.17-1.55-1.17-2.96 0-1.4.73-2.09 1-2.38.26-.29.57-.36.76-.36.19 0 .39 0 .56.01.18.01.42-.07.65.5.24.58.82 2 .89 2.14.07.15.12.32.02.51-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.29.75 1.24 1.61 2.01 1.11.99 2.04 1.3 2.33 1.45.29.15.46.12.63-.07.17-.19.73-.85.93-1.14.19-.29.39-.24.65-.15.27.1 1.7.8 1.99.95.29.15.48.22.55.34.07.13.07.75-.17 1.43z"/></svg>
+  </a>
+
+  <!-- ===================== PANIER ===================== -->
+  <div class="overlay" id="cartOverlay" hidden></div>
+  <aside class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Panier" aria-hidden="true">
+    <div class="drawer-head">
+      <h3><span data-i18n="cart.title">Ton panier</span> <span class="pill" id="bagTitleCount">0</span></h3>
+      <button class="close-btn" id="cartClose" type="button" aria-label="Fermer le panier" data-i18n-aria="a11y.close">×</button>
+    </div>
+    <div class="drawer-body" id="cartItems"></div>
+    <div class="drawer-footer" id="cartFooter"></div>
+  </aside>
+
+  <!-- ===================== APERÇU RAPIDE ===================== -->
+  <div class="modal-wrap" id="quickViewWrap" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal wide">
+      <button class="close-btn" id="quickViewClose" type="button" aria-label="Fermer" data-i18n-aria="a11y.close">×</button>
+      <div id="quickViewBody"></div>
+    </div>
+  </div>
+
+  <!-- ===================== COMMANDE ===================== -->
+  <div class="modal-wrap" id="checkoutWrap" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal">
+      <button class="close-btn" id="checkoutClose" type="button" aria-label="Fermer" data-i18n-aria="a11y.close">×</button>
+      <div class="modal-head">
+        <div>
+          <h3 data-i18n="checkout.title">Finaliser la commande</h3>
+          <p data-i18n="checkout.sub">Paiement à la livraison · on t’appelle pour confirmer avant l’expédition.</p>
+        </div>
+      </div>
+      <div class="modal-body">
+
+        <!-- Étape 1 -->
+        <div id="checkoutStep1">
+          <form id="checkoutForm" novalidate>
+            <div class="field-grid">
+              <div class="field full">
+                <label for="customerName"><span data-i18n="form.name">Nom et prénom</span> <span class="req">*</span></label>
+                <input id="customerName" name="name" required autocomplete="name" placeholder="Ex : Amine Belkacem" data-i18n-placeholder="form.namePh">
+                <span class="err" data-err="name"></span>
+              </div>
+              <div class="field full">
+                <label for="customerPhone"><span data-i18n="form.phone">Numéro de téléphone</span> <span class="req">*</span></label>
+                <input id="customerPhone" name="phone" required type="tel" inputmode="tel" autocomplete="tel" placeholder="05 55 12 34 56">
+                <span class="hint" data-i18n="form.phoneHint">Format : 0555 12 34 56, 0666…, 0777… ou +213…</span>
+                <span class="err" data-err="phone"></span>
+              </div>
+              <div class="field full">
+                <label for="customerWilaya"><span data-i18n="form.wilaya">Wilaya</span> <span class="req">*</span></label>
+                <select id="customerWilaya" name="wilaya" required>
+                  <option value="" data-i18n="form.wilayaPh">Choisis ta wilaya</option>
+                </select>
+                <span class="err" data-err="wilaya"></span>
+              </div>
+
+              <div class="field full">
+                <span class="pdp-label" style="margin-bottom:2px"><span data-i18n="form.mode">Mode de livraison</span></span>
+                <div class="delivery-modes" id="deliveryModes" role="radiogroup" aria-label="Mode de livraison">
+                  <button type="button" class="mode-card is-active" data-mode="home" role="radio" aria-checked="true">
+                    <span class="radio" aria-hidden="true"></span>
+                    <span>
+                      <strong data-i18n="form.modeHome">À domicile</strong>
+                      <span data-i18n="form.modeHomeSub">Le livreur vient jusqu’à ta porte</span>
+                      <span class="mode-fee" data-mode-fee="home" style="display:block;font-weight:700;color:var(--ink);margin-top:4px"></span>
+                    </span>
+                  </button>
+                  <button type="button" class="mode-card" data-mode="desk" role="radio" aria-checked="false">
+                    <span class="radio" aria-hidden="true"></span>
+                    <span>
+                      <strong data-i18n="form.modeDesk">Stop Desk</strong>
+                      <span data-i18n="form.modeDeskSub">Tu récupères au bureau du transporteur</span>
+                      <span class="mode-fee" data-mode-fee="desk" style="display:block;font-weight:700;color:var(--ink);margin-top:4px"></span>
+                    </span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="field full">
+                <label for="customerAddress"><span data-i18n="form.address">Commune / adresse</span> <span class="req">*</span></label>
+                <input id="customerAddress" name="address" required autocomplete="street-address" placeholder="Ex : Bab Ezzouar, cité 200 logements, près de la pharmacie" data-i18n-placeholder="form.addressPh">
+                <span class="err" data-err="address"></span>
+              </div>
+              <div class="field full">
+                <label for="customerNote" data-i18n="form.note">Note pour le livreur (optionnel)</label>
+                <textarea id="customerNote" name="note" placeholder="Ex : appelez-moi avant 18 h" data-i18n-placeholder="form.notePh"></textarea>
+              </div>
+            </div>
+
+            <div class="order-summary" id="checkoutSummary" style="margin-top:20px"></div>
+
+            <div class="pay-note" style="margin-top:14px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+              <span data-i18n="checkout.payNote">Aucun paiement en ligne. Tu payes le livreur en espèces quand tu reçois le colis.</span>
+            </div>
+
+            <button class="btn full" id="checkoutSubmit" type="submit" style="margin-top:18px">
+              <span data-i18n="checkout.submit">Confirmer ma commande</span>
+            </button>
+            <p class="checkout-note" data-i18n="checkout.terms">En confirmant, tu acceptes d’être contacté au numéro indiqué pour valider la commande.</p>
+          </form>
+        </div>
+
+        <!-- Étape 2 : confirmation -->
+        <div id="checkoutStep2" hidden>
+          <div class="confirm-box">
+            <span class="confirm-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
+            <div>
+              <h3 style="font-size:22px" data-i18n="confirm.title">Commande enregistrée !</h3>
+              <p class="muted" style="margin-top:8px" data-i18n="confirm.sub">On t’appelle dans les prochaines heures pour confirmer la taille et l’adresse.</p>
+            </div>
+            <div>
+              <p class="muted" style="font-size:11px;margin-bottom:6px" data-i18n="confirm.refLabel">Référence de commande</p>
+              <div class="confirm-ref" id="confirmRef">LEO-000000</div>
+            </div>
+            <div id="confirmSummary" style="width:100%"></div>
+            <div class="confirm-actions">
+              <a class="btn whats" id="confirmWhats" href="#" target="_blank" rel="noopener">
+                <span data-i18n="confirm.wa">Envoyer sur WhatsApp</span>
+              </a>
+              <button class="btn ghost" id="confirmContinue" type="button" data-i18n="confirm.continue">Continuer mes achats</button>
+            </div>
+            <p class="muted" style="font-size:11px" data-i18n="confirm.keep">Garde ta référence : elle sert au suivi de ta commande.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== GUIDE DES TAILLES ===================== -->
+  <div class="modal-wrap" id="sizeGuideWrap" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal">
+      <button class="close-btn" id="sizeGuideClose" type="button" aria-label="Fermer" data-i18n-aria="a11y.close">×</button>
+      <div class="modal-head">
+        <div>
+          <h3 data-i18n="size.title">Guide des tailles</h3>
+          <p data-i18n="size.sub">Nos coupes sont oversize : entre deux tailles, prends la plus grande pour un tombé plus large.</p>
+        </div>
+      </div>
+      <div class="modal-body" id="sizeGuideBody"></div>
+    </div>
+  </div>
+
+  <!-- ===================== ESPACE GESTION ===================== -->
+  <div class="modal-wrap" id="adminWrap" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal wide admin-modal">
+      <button class="close-btn" id="adminClose" type="button" aria-label="Fermer" data-i18n-aria="a11y.close">×</button>
+      <div class="admin-shell">
+        <div class="admin-side">
+          <div class="brand">Leo’s <small data-i18n="admin.panel">Gestion</small></div>
+          <nav class="admin-tabs-row" aria-label="Sections de gestion">
+          <button class="admin-tab is-active" data-pane="dashboard" type="button" data-i18n="admin.tabDash">Tableau de bord</button>
+          <button class="admin-tab" data-pane="products" type="button" data-i18n="admin.tabProducts">Produits</button>
+          <button class="admin-tab" data-pane="offer" type="button" data-i18n="admin.tabOffer">Combo & remise</button>
+          <button class="admin-tab" data-pane="delivery" type="button" data-i18n="admin.tabDelivery">Livraison</button>
+          <button class="admin-tab" data-pane="integrations" type="button" data-i18n="admin.tabIntegrations">Intégrations</button>
+          </nav>
+          <p class="side-foot" data-i18n="admin.localNote">Ces réglages sont enregistrés dans ce navigateur uniquement (démo).</p>
+        </div>
+
+        <div class="admin-main">
+          <!-- Tableau de bord -->
+          <div class="admin-pane is-active" id="pane-dashboard">
+            <h4 data-i18n="admin.dashTitle">Tableau de bord</h4>
+            <p class="sub" data-i18n="admin.dashSub">Vue rapide sur le catalogue, les commandes enregistrées dans ce navigateur et l’offre en cours.</p>
+            <div class="admin-stats">
+              <div class="stat-card"><span data-i18n="admin.statProducts">Produits en ligne</span><strong id="adminProductCount">0</strong></div>
+              <div class="stat-card"><span data-i18n="admin.statOrders">Commandes locales</span><strong id="adminOrderCount">0</strong></div>
+              <div class="stat-card"><span data-i18n="admin.statOffers">Offre active</span><strong id="adminOfferSummary" style="font-size:15px">—</strong></div>
+            </div>
+            <h4 style="font-size:15px" data-i18n="admin.lastOrders">Dernières commandes</h4>
+            <div class="admin-list" id="adminOrders" style="margin-top:10px"></div>
+            <div class="admin-actions">
+              <button class="btn sm ghost" id="exportData" type="button" data-i18n="admin.export">Exporter les données (JSON)</button>
+              <button class="btn sm ghost" id="resetData" type="button" data-i18n="admin.reset">Réinitialiser la démo</button>
+            </div>
+          </div>
+
+          <!-- Produits -->
+          <div class="admin-pane" id="pane-products">
+            <h4 data-i18n="admin.productsTitle">Catalogue</h4>
+            <p class="sub" data-i18n="admin.productsSub">Ajoute une pièce, change un prix ou retire un article. Les champs vides utilisent une valeur par défaut.</p>
+            <form id="productAdminForm">
+              <div class="field-grid">
+                <div class="field"><label for="pName" data-i18n="admin.fName">Nom du produit</label><input id="pName" placeholder="Hoodie Oversize" data-i18n-placeholder="admin.fNamePh"></div>
+                <div class="field"><label for="pCategory" data-i18n="admin.fCategory">Catégorie</label>
+                  <select id="pCategory">
+                    <option value="Hoodies">Hoodies</option>
+                    <option value="T-shirts">T-shirts</option>
+                    <option value="Sweats">Sweats</option>
+                    <option value="Pantalons">Pantalons</option>
+                    <option value="Accessoires">Accessoires</option>
+                  </select>
+                </div>
+                <div class="field"><label for="pPrice" data-i18n="admin.fPrice">Prix (DA)</label><input id="pPrice" type="number" min="0" step="100" placeholder="5900"></div>
+                <div class="field"><label for="pOldPrice" data-i18n="admin.fOld">Ancien prix (optionnel)</label><input id="pOldPrice" type="number" min="0" step="100" placeholder="6900"></div>
+                <div class="field"><label for="pStock" data-i18n="admin.fStock">Stock restant (0 = illimité)</label><input id="pStock" type="number" min="0" step="1" placeholder="0"></div>
+                <div class="field full"><label for="pImage" data-i18n="admin.fImage">Image (URL ou chemin)</label><input id="pImage" placeholder="assets/hoodie-onyx.jpg"></div>
+                <div class="field full"><label for="pDesc" data-i18n="admin.fDesc">Description</label><textarea id="pDesc" placeholder="Coton 400 g, coupe oversize…" data-i18n-placeholder="admin.fDescPh"></textarea></div>
+              </div>
+              <div class="admin-actions"><button class="btn sm" type="submit" data-i18n="admin.addProduct">Ajouter au catalogue</button></div>
+            </form>
+            <div class="admin-list" id="adminProductList" style="margin-top:20px"></div>
+          </div>
+
+          <!-- Offre -->
+          <div class="admin-pane" id="pane-offer">
+            <h4 data-i18n="admin.offerTitle">Combo & remise</h4>
+            <p class="sub" data-i18n="admin.offerSub">La remise s’applique automatiquement dès que le panier atteint le nombre minimum d’articles.</p>
+            <div class="field-grid">
+              <div class="field"><label for="discountInput" data-i18n="admin.fDiscount">Remise combo (%)</label><input id="discountInput" type="number" min="0" max="60" step="1"></div>
+              <div class="field"><label for="minimumItemsInput" data-i18n="admin.fMinItems">Articles minimum pour la remise</label><input id="minimumItemsInput" type="number" min="2" max="10" step="1"></div>
+              <div class="field"><label for="freeShipInput" data-i18n="admin.fFreeShip">Articles pour livraison offerte</label><input id="freeShipInput" type="number" min="1" max="20" step="1"></div>
+            </div>
+            <button class="btn sm" id="saveOffer" type="button" style="margin-top:18px" data-i18n="admin.saveOffer">Enregistrer l’offre</button>
+          </div>
+
+          <!-- Livraison -->
+          <div class="admin-pane" id="pane-delivery">
+            <h4 data-i18n="admin.delTitle">Frais de livraison</h4>
+            <p class="sub" data-i18n="admin.delSub">Trois zones tarifaires. Les wilayas du Sud et de l’Est/Ouest sont détectées automatiquement.</p>
+            <div class="field-grid">
+              <div class="field"><label for="feeNorth" data-i18n="admin.fNorth">Nord & Centre (DA)</label><input id="feeNorth" type="number" min="0" step="50"></div>
+              <div class="field"><label for="feeEastWest" data-i18n="admin.fEW">Est & Ouest (DA)</label><input id="feeEastWest" type="number" min="0" step="50"></div>
+              <div class="field"><label for="feeSouth" data-i18n="admin.fSouth">Sud (DA)</label><input id="feeSouth" type="number" min="0" step="50"></div>
+              <div class="field"><label for="deskDiscount" data-i18n="admin.fDesk">Remise Stop Desk (%)</label><input id="deskDiscount" type="number" min="0" max="60" step="5"></div>
+              <div class="field"><label for="deliveryDays" data-i18n="admin.fDays">Délai estimé (jours)</label><input id="deliveryDays" type="text" placeholder="2–5"></div>
+            </div>
+            <button class="btn sm" id="saveDelivery" type="button" style="margin-top:18px" data-i18n="admin.saveDelivery">Enregistrer la livraison</button>
+          </div>
+
+          <!-- Intégrations -->
+          <div class="admin-pane" id="pane-integrations">
+            <h4 data-i18n="admin.intTitle">Intégrations</h4>
+            <p class="sub" data-i18n="admin.intSub">Numéro WhatsApp de la boutique et pixels publicitaires.</p>
+            <div class="field-grid">
+              <div class="field full"><label for="whatsappNumber" data-i18n="admin.fWa">Numéro WhatsApp (international, sans +)</label><input id="whatsappNumber" placeholder="213555123456" inputmode="tel"></div>
+              <div class="field"><label for="facebookPixelId" data-i18n="admin.fFb">Meta Pixel ID</label><input id="facebookPixelId" placeholder="1234567890"></div>
+              <div class="field"><label for="tiktokPixelId" data-i18n="admin.fTt">TikTok Pixel ID</label><input id="tiktokPixelId" placeholder="ABCDEF123"></div>
+            </div>
+            <div class="switch-row">
+              <div><strong data-i18n="admin.fAnn">Afficher la barre d’annonce</strong><span class="muted" style="display:block;font-size:11px" data-i18n="admin.fAnnSub">Décorative, masquable sans toucher au code.</span></div>
+              <label class="switch"><input type="checkbox" id="announcementToggle" checked><i aria-hidden="true"></i></label>
+            </div>
+            <button class="btn sm" id="saveIntegrations" type="button" style="margin-top:18px" data-i18n="admin.saveInt">Enregistrer les intégrations</button>
+            <p class="admin-hint" data-i18n="admin.hint">Les pixels ne se chargent jamais si les identifiants sont vides.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
