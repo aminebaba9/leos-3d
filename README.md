@@ -10,19 +10,21 @@ Un seul fichier à déployer, **aucune dépendance obligatoire**, **bilingue fra
 | Chemin | Rôle |
 | --- | --- |
 | `index.html` | Le site complet (HTML + CSS + JS en ligne). C'est le fichier à envoyer en production. |
-| `build/01-css-base.css`, `build/02-css-ui.css` | Feuilles de style (thème, composants, responsive, RTL). |
-| `build/03-head.html` → `build/05-tail.html` | Structure HTML (en-tête, sections, modales). |
-| `build/06-script-data.js` | Données : 58 wilayas, couleurs, catalogue, avis, FAQ, réglages, dictionnaires FR/AR. |
-| `build/07-script-render.js` | Rendu : grille produits, fiche produit, panier, guide des tailles, aperçu rapide. |
-| `build/08-script-i18n.js` | Traductions arabes des textes statiques. |
-| `build/09-script-app.js` | Interactions : panier, commande, gestion, héros 3D, langue. |
-| `build/build.js` | Assemble `index.html` à partir des sources ci-dessus. |
+| `src/01-css-base.css`, `src/02-css-ui.css` | Feuilles de style (thème, composants, responsive, RTL). |
+| `src/03-head.html` → `src/05-tail.html` | Structure HTML (en-tête, sections, modales). |
+| `src/06-script-data.js` | Données : 58 wilayas, couleurs, catalogue, avis, FAQ, réglages, dictionnaires FR/AR. |
+| `src/07-script-render.js` | Rendu : grille produits, fiche produit, panier, guide des tailles, aperçu rapide. |
+| `src/08-script-i18n.js` | Traductions arabes des textes statiques. |
+| `src/09-script-app.js` | Interactions : panier, commande, gestion, héros 3D, langue. |
+| `src/build.js` | Assemble `index.html` à partir des sources ci-dessus. |
 | `assets/` | Visuels produits et photo « notre histoire ». |
+| `tools/serve.js` | Serveur local pour prévisualiser (`node tools/serve.js`). |
+| `tools/standalone.js` | Génère `leos-standalone.html` : tout le site dans un seul fichier, images comprises. |
 
-**Modifier le site :** éditez les fichiers de `build/` puis lancez
+**Modifier le site :** éditez les fichiers de `src/` puis lancez
 
 ```bash
-node build/build.js      # régénère index.html + contrôles de structure
+node src/build.js     # régénère index.html + contrôles de structure
 ```
 
 On peut aussi éditer `index.html` directement : le script compilé y est lisible et commenté.
@@ -67,12 +69,12 @@ On peut aussi éditer `index.html` directement : le script compilé y est lisibl
 | Numéro WhatsApp de la boutique | Gestion → Intégrations (défaut : `213555000000`) |
 | Remise combo / minimum d'articles | Gestion → Combo & remise |
 | Frais de livraison, Stop Desk, délais | Gestion → Livraison |
-| Catalogue | Gestion → Produits, ou `DEFAULT_PRODUCTS` dans `build/06-script-data.js` |
-| Textes et traductions | Dictionnaires `I18N` (`build/06-script-data.js`, `build/08-script-i18n.js`) |
-| Couleurs du thème | Variables CSS `:root` en haut de `build/01-css-base.css` |
+| Catalogue | Gestion → Produits, ou `DEFAULT_PRODUCTS` dans `src/06-script-data.js` |
+| Textes et traductions | Dictionnaires `I18N` (`src/06-script-data.js`, `src/08-script-i18n.js`) |
+| Couleurs du thème | Variables CSS `:root` en haut de `src/01-css-base.css` |
 | Photos produits | Remplacer les fichiers de `assets/` (mêmes noms) |
 
-> Les réglages et le panier sont stockés dans le navigateur (`localStorage`). C'était le cas dans la version d'origine : le panier et les réglages de démonstration vivent côté client. Pour une mise en production réelle, brancher `submitOrder()` (dans `build/09-script-app.js`) sur une API ou un Google Sheet, et déplacer les réglages côté serveur.
+> Les réglages et le panier sont stockés dans le navigateur (`localStorage`). C'était le cas dans la version d'origine : le panier et les réglages de démonstration vivent côté client. Pour une mise en production réelle, brancher `submitOrder()` (dans `src/09-script-app.js`) sur une API ou un Google Sheet, et déplacer les réglages côté serveur.
 
 ---
 
